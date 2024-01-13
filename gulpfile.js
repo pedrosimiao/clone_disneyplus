@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
+const imagemin = require('gulp-imagemin');
 
 function styles() {
     return gulp.src('./src/styles/*scss') //recupera todos os arquivos scss dentro da pasta ./scr/styles
@@ -7,7 +8,13 @@ function styles() {
         .pipe(gulp.dest('./dist/css')); //define pasta de destino dos arquivos scss compilados em css
 }
 
-exports.default = styles;
+function images() {
+    return gulp.src('./src/images/**/*') //recupera todos os arquivos em todas as pastas dentro da pasta images
+        .pipe(imagemin()) //executa o compressor de imagens  
+        .pipe(gulp.dest('./dist/images')); // define pasta de destino das pastas e arquivos de imagens
+}
+
+exports.default = gulp.parallel(styles, images);
 exports.watch = function() {
     gulp.watch('./src/styles/*scss', gulp.parallel(styles))
     //observa todos os arquivos scss em styles e executa tarefas

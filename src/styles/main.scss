@@ -1,5 +1,69 @@
-$bgColor: rgb(0, 255, 229);
+@use 'variaveis';
+@use 'hero'; //não é preciso definir a extesão nem colocar o underline para o sass achar o arquivo _hero.scss
+
+@font-face {
+    font-family: Avenir;
+    src: url(../../assets/fonts/Avenir-Regular.woff2); 
+    //main.scss se encontra na pasta src/styles, então "../../assets" é para acessar a pasta assets que se encontra na pasta raíz (pasta do projeto) 
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Avenir;
+    src: url(../../assets/fonts/Avenir-Bold.woff2);
+    font-weight: 700;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-    background-color: $bgColor;
+    background-color: variaveis.$corDeFundo;
+    font-family: Avenir, sans-serif;
 }
+
+@mixin text($fontSize: 16px) { //mixing seguindo o padrão de tamanho de texto = tamanho de título - 10px
+    font-size: $fontSize;
+    line-height: $fontSize + 10px;
+    color: variaveis.$corTextoPrincipal;
+}
+
+@mixin title($fontSize: 40px) {
+    @include text($fontSize); //usando o mixin text dentro do mixin title para reaproveitar a lógica
+    color: variaveis.$corTextoSecundario;
+}
+
+.text--big { //para usar o mixin é precuso adicionar a palavra chave @include 
+    @include text(18px);
+}
+
+.text { //como o tamanho necessário é igual ao da variável de argumento do mixin basta escrever o nome do mixin sem argumentos
+    @include text;
+}
+
+.text--small {
+    @include text(12px);
+}
+
+.link-text {
+    @include text(18px);
+    color: variaveis.$corTextoSecundario;
+    text-decoration: underline;
+}
+
+.title--big {
+    @include title(44px);
+}
+
+.title {
+    @include title; //como o tamanho necessário é igual ao da variável de argumento do mixin basta escrever o nome do mixin sem argumentos
+}
+
+
+.title--small {
+    @include title(28px);
+}
+
