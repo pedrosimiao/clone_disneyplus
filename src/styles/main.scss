@@ -1,5 +1,8 @@
+//não é preciso definir a extesão nem colocar o underline para o sass achar o arquivo _nome-do-arquivo.scss
+@use 'hero';
 @use 'variaveis';
-@use 'hero'; //não é preciso definir a extesão nem colocar o underline para o sass achar o arquivo _hero.scss
+@use 'shows';
+@use 'plans';
 
 @font-face {
     font-family: Avenir;
@@ -18,11 +21,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Avenir, sans-serif;
 }
 
 body {
     background-color: variaveis.$corDeFundo;
-    font-family: Avenir, sans-serif;
 }
 
 @mixin text($fontSize: 16px) { //mixing seguindo o padrão de tamanho de texto = tamanho de título - 10px
@@ -65,5 +68,18 @@ body {
 
 .title--small {
     @include title(28px);
+}
+
+.button {
+    display: block; //para o botão ficar numa linha só pra ele
+    width: 100%;
+    height: 60px;
+    font-size: 18px;
+    color: variaveis.$corTextoSecundario;
+    background-color: #6421ff;
+    text-transform: uppercase;
+    border-radius: 4px;
+    margin-top: 2vw;
+    margin-bottom: 8px;
 }
 
