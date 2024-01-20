@@ -3,6 +3,10 @@
 @use 'variaveis';
 @use 'shows';
 @use 'plans';
+@use 'available-devices';
+@use 'faq';
+@use 'footer';
+@use 'header';
 
 @font-face {
     font-family: Avenir;
@@ -41,14 +45,26 @@ body {
 
 .text--big { //para usar o mixin é precuso adicionar a palavra chave @include 
     @include text(18px);
+
+    @media (max-width: 768px) {
+        @include text(15px);
+    }
 }
 
 .text { //como o tamanho necessário é igual ao da variável de argumento do mixin basta escrever o nome do mixin sem argumentos
     @include text;
+
+    @media (max-width: 768px) {
+        @include text(14px);
+    }
 }
 
 .text--small {
     @include text(12px);
+
+    @media (max-width: 768px) {
+        @include text(11px);
+    }
 }
 
 .link-text {
@@ -59,27 +75,127 @@ body {
 
 .title--big {
     @include title(44px);
+
+    @media (max-width: 768px) {
+        @include title(26px);
+    }
 }
 
 .title {
     @include title; //como o tamanho necessário é igual ao da variável de argumento do mixin basta escrever o nome do mixin sem argumentos
+
+    @media (max-width: 768px) {
+        @include title(24px);
+    }
 }
 
 
 .title--small {
     @include title(28px);
+
+    
+    @media (max-width: 768px) {
+        @include title(22px);
+    }
 }
 
 .button {
-    display: block; //para o botão ficar numa linha só pra ele
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 60px;
     font-size: 18px;
     color: variaveis.$corTextoSecundario;
-    background-color: #6421ff;
+    background-color: variaveis.$corDeFundoBotaoPrimario;
     text-transform: uppercase;
     border-radius: 4px;
-    margin-top: 2vw;
-    margin-bottom: 8px;
+    text-decoration: none;
+    padding: 8px 14px;
+    letter-spacing: 1px;
+    border: 1px solid variaveis.$corDeFundoBotaoPrimario;
+
+    @media (max-width: 768px) {
+        font-size: 13px;
+        padding: 8px 11px;
+        height: 40px;
+        letter-spacing: 0;
+    }
+
+    &:hover {
+        background-color: lighten(variaveis.$corDeFundoBotaoPrimario, 3%);
+    }
+
+    &--secondary {
+        background-color: variaveis.$corDeFundoBotaoSecundario;
+        border-color: variaveis.$corDeFundoBotaoSecundario;
+
+        &:hover {
+            background-color: lighten(variaveis.$corDeFundoBotaoSecundario, 3%);
+        }
+    }
+
+    &--dark {
+        background-color: rgba(variaveis.$corDeFundoBotaoDark, 0.8);
+        border-color: variaveis.$corTextoSecundario;
+
+        &:hover {
+            background-color: variaveis.$corTextoSecundario;
+            color: variaveis.$corDeFundo;
+        }
+    }
 }
 
+.image-text-section {
+    padding: 5.6vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+
+    @media (max-width: 768px) { //mobile
+        display: block;
+        //elementos um abaixo do outro
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    &__text-container {
+        padding: 0 2vw;
+
+        h2 {
+            margin-bottom: 24px;
+        }
+    }
+
+    &--image-full-width {
+        display: block;
+        position: relative; //para conter o position: absolute do __text-container
+        
+
+        img {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        &__text-container {
+            position: absolute;
+            top: 0; //para que o texto 
+            left: 50%; //para posicionar texto a 50% para a direita, left: 0% alinharia totalmente a esquerda
+            height: 100%; //para que ocupe 100% da altura da section
+            width: calc(50% - 5.6vw);
+            display: flex; //para que se possa alinhar os elementos na vertical mais facilmente
+            flex-direction: column; //para que o efeito do flex seja orientado a coluna e não a linha como o padrão
+            justify-content: center; //como o flex está orientado a colunas usa-se o justify-content para alinhamento vertical, align-items alinharia na horizontal
+
+            @media (max-width: 768px) { //mobile
+                position: relative; //alterando a posição do container de texto
+                left: 0; //começando a esquerda
+                width: 100%; //ocupando toda a largura (768px)
+            }
+
+
+        }
+    }
+}

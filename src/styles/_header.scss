@@ -1,0 +1,70 @@
+//Usando o BEM também é importante não nomear as classes de maneira muito longa, por isso neste caso 
+//está se usando blocos separados, class="header__container__links__item é um nome grande demais, 
+//portando é útil ter esse bom senso e atenção para não se tornar uma escrita cansativa.
+
+@use 'variaveis';
+
+.header {
+position: sticky;
+top: 0;
+left: 0;
+background-color: variaveis.$corDeFundo;
+transition: background-color .5s ease;
+z-index: 1; //eixo z sobrepões outros elementos fazendo o header se sobrepor a qualquer seção.
+
+    &--is-hidden {
+        background-color: transparent;
+        transition: background-color .5s ease;
+
+        .header {
+            &__logo,  &__links__item:first-child {
+                opacity: 0;
+                visibility: hidden; //altera o botão de forma que ele não se torne clicável
+                transition: opacity .5s ease;
+
+            } 
+        }
+    }
+
+    &__container { //div
+        padding: 8px 36px;
+        display: flex;
+        justify-content: space-between;
+
+        @media (max-width: 768px) {
+            padding: 0 12px 0px 20px;
+        }
+    }
+
+    &__logo { //img
+        max-width: 80px;
+        width: 100%;
+        margin: 5px;
+        transition: opacity .5s ease;
+
+        @media (max-width: 768px) {
+            max-width: 64px;
+        }
+    }
+
+    &__links { //ul
+        display: flex; //para que os itens fiquem um ao lado do outro
+        list-style: none;
+
+        &__item { //li
+            margin: 5px;
+            transition: opacity .5s ease;
+        }
+    }
+}
+
+// .button {
+//     height: 50px;
+
+//     @media (max-width: 768px) {
+//         font-size: 13px;
+//         padding: 8px 11px;
+//         height: 40px;
+//         letter-spacing: 0;
+//     }
+// }

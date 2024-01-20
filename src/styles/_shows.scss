@@ -6,9 +6,13 @@
     
     &__list {
         display: none;
-        grid-template-columns: 1fr 1fr 1fr; //três colunas em uma linha
+        grid-template-columns: 1fr 1fr 1fr; //três colunas (frações) em uma linha
         gap: 24px; //espaçamento de 24px entre os itens da lista
         margin-top: 44px;
+
+        @media (max-width: 768px) { //mobile
+            grid-template-columns: 1fr 1fr; //duas colunas (frações) em uma linha
+        }
 
         &--is-active {
             display: grid;
@@ -26,6 +30,17 @@
         display: flex;
         justify-content: center;
 
+        @media (max-width: 768px) {
+            white-space: nowrap; 
+            //faz com que as palavras no texto fiquem numa 
+            //linha só mesmo que isso não caiba no container
+            //no wrap = sem empacotar
+
+            overflow-x: scroll; //permitir rolage horizontal
+            padding-left: 20px; //forçar visão do primiro item já a esquerda
+
+        }
+
         &__button {
             color: variaveis.$corTextoSecundario;
             font-size: 20px;
@@ -39,6 +54,10 @@
 
             &--is-active {
                 border-color: variaveis.$corTextoSecundario;
+            }
+
+            @media (max-width: 768px) {
+                font-size: 16px;
             }
         }
     }
